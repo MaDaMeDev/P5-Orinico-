@@ -9,31 +9,35 @@ const callApi = async function () {
                 console.log(value)  
                 let article = document.createElement("article")
                 document.querySelector(".products").appendChild(article)
-                article.classList.add("card")
+                article.classList.add("card","col-lg-4","col-md-6", "mb-3")
                 
                 let img = document.createElement("img")
-                img.classList.add("card-img-top")
+                img.classList.add("card-img-top", "img-fluid")
                 img.setAttribute('src', `${value.imageUrl}`)
                 article.appendChild(img)
+
+                let cardBody = document.createElement("section")
+                article.appendChild(cardBody)
+                cardBody.classList.add("card-body")
                 
                 let title = document.createElement("h3")
-                article.appendChild(title)
+                cardBody.appendChild(title)
                 title.classList.add("card-title")
                 title.textContent = `${value.name}`
 
                 let price = document.createElement("p")
-                article.appendChild(price)
+                cardBody.appendChild(price)
                 price.classList.add("card-text")
                 price.textContent= `${value.price}$`
 
                 let desc = document.createElement("p")
-                article.appendChild(desc)
+                cardBody.appendChild(desc)
                 desc.classList.add("card-text")
                 desc.textContent= value.description
 
                 let btn = document.createElement("a")
-                article.appendChild(btn)
-                btn.classList.add("btn-primary", "add");
+                cardBody.appendChild(btn)
+                btn.classList.add("btn", "add");
                 btn.setAttribute("href", "produit.html?id=" + value._id)
                 btn.textContent= "voir article"
 
