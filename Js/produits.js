@@ -30,6 +30,11 @@ const callApi = async function () {
                 img.setAttribute('src', `${data.imageUrl}`)
                 article.appendChild(img)
 
+                let price = document.createElement("p")
+                article.appendChild(price)
+                price.classList.add("text-center")
+                price.textContent = ` ${data.price}$`
+
                 let desc = document.createElement("p")
                 article.appendChild(desc)
                 desc.textContent = `${data.description}`
