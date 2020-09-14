@@ -29,6 +29,12 @@ header  {
     
  }
 
+ .bloc-title {
+    width: 40vh;
+    height: 30vh;
+    display: flex;
+ }
+
  
 
 article {
@@ -60,6 +66,7 @@ article {
     height: 60%;
     margin-bottom:2rem;
     box-shadow: 0px 9px 5px 0px rgba(69,60,69,0.2);
+    object-fit: cover;
    
 }
 
@@ -70,7 +77,12 @@ footer {
     background-color:#F2E4EB;
 }
 
+/* Page produit ------------------------- */
 
+.product {
+
+    margin: 2rem auto;
+}
 
 
 
