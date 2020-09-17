@@ -68,6 +68,27 @@ const callApi = async function () {
                     option.textContent = `${color}`
 
                  });
+                
+                
+                 let btn = document.createElement("a")
+                 article.appendChild(btn)
+                 btn.classList.add("btn", "buy");
+                 btn.setAttribute("href", "#")
+                 btn.textContent = "Acheter"
+
+                 // test ecoute au click
+
+                let add = document.querySelectorAll(".buy")
+
+                for (let i=0; i < add.length; i++) {
+                    add[i].addEventListener("click", () => {
+                        console.log("add")
+                    }
+                    )
+                }
+                 
+               // fin de test
+
             }
 
             detailProduct(data)

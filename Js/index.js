@@ -41,19 +41,7 @@ const callApi = async function () {
                 btn.setAttribute("href", "produit.html?id=" + value._id)
                 btn.textContent= "voir article"
 
-                // test ecoute au click
-
-                let add = document.querySelectorAll(".add")
-
-                for (let i=0; i < add.length; i++) {
-                    add[i].addEventListener("click", () => {
-                        console.log("add")
-                    }
-                    )
-                }
-                 
-               // fin de test
-
+                
             });
             
         } else {
