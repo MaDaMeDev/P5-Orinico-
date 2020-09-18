@@ -4,6 +4,7 @@ const id = actualUrl.get("id"); 
 
 const apiUrl = "http://localhost:3000/api/teddies/" + id; 
 
+
 console.log(id)
 
 const callApi = async function () {
@@ -67,14 +68,14 @@ const callApi = async function () {
                     select.appendChild(option)
                     option.textContent = `${color}`
 
-                 });
+                });
                 
                 
-                 let btn = document.createElement("a")
-                 article.appendChild(btn)
-                 btn.classList.add("btn", "buy");
-                 btn.setAttribute("href", "#")
-                 btn.textContent = "Acheter"
+                let btn = document.createElement("a")
+                article.appendChild(btn)
+                btn.classList.add("btn", "buy")
+                btn.setAttribute("href", "#")
+                btn.textContent = "Acheter"
 
                  // test ecoute au click
 
@@ -83,11 +84,28 @@ const callApi = async function () {
                 for (let i=0; i < add.length; i++) {
                     add[i].addEventListener("click", () => {
                         console.log("add")
+                       
                     }
                     )
                 }
-                 
-               // fin de test
+
+                const product = {
+                    id : data._id,
+                    name : data.name,
+                    image : data.imageUrl,
+                    desc : data.description,
+                    price : data.price,
+
+                   
+                }
+
+               
+                btn.addEventListener("click", () => {
+                        localStorage.setItem(product, JSON.stringify(product))
+                })
+               
+
+         
 
             }
 
@@ -95,12 +113,12 @@ const callApi = async function () {
  
         } else {
             console.error("response server : ", response.status)
-        }   
-    } catch(e) {
+         }   
+     } catch(e) {
         console.log(e)
-    }
+      }
 
     
 }
 
-callApi() ;
+callApi() 
