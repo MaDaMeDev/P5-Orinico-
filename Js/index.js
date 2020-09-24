@@ -42,6 +42,8 @@ const callApi = async function () {
                 btn.textContent= "voir article"
 
                 
+
+                
             });
             
         } else {
@@ -55,6 +57,7 @@ const callApi = async function () {
 };
 
 callApi() ;
+
 
 
 
