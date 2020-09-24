@@ -148,9 +148,6 @@
                     formContainer.classList.add("form-container", "container")
                     container.appendChild(formContainer)
 
-                    
-                    
-
                     formContainer.innerHTML = `
 
                     <h4 class="formTitle"> Valider votre commande</h4>
@@ -178,15 +175,6 @@
 
                     <button type="submit" class="btn">Valider</button>
                 </form> `
-
-
-
-                    
-
-
-
-
-                    
 
                 } else {
                     let cartEmpty = document.createElement("p")
