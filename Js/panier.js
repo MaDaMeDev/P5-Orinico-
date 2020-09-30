@@ -191,7 +191,7 @@
                   
                    for (let i in JSON.parse(localStorage.getItem("productsInCart"))) {
                        
-                        products.push(cartItems[i]._id)
+                        products.push([i].id)
                         
                     }
                  
