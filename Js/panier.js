@@ -225,7 +225,7 @@
                     console.log(products);
 
                     fetch ( "http://localhost:3000/api/teddies/order", {
-                        method : "post",
+                        method : "POST",
                         body: JSON.stringify(obj)
                     })
                    .then(function(response){
