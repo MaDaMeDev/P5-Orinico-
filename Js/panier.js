@@ -153,28 +153,80 @@
                     <h4 class="formTitle"> Valider votre commande</h4>
                     <form>
                     <div class="form-group">
-                      <label for="exampleInputName">Nom</label>
-                      <input type="name" class="form-control" id="exampleInputName" aria-describedby="nameHelp" placeholder="Nom">
+                      <label for="Name">Nom</label>
+                      <input type="name" class="form-control" id="name"" aria-describedby="nameHelp" placeholder="Nom" required>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputLastName">Prénom</label>
-                      <input type="text" class="form-control" id="exampleInputLastName" placeholder="Prénom">
+                      <label for="LastName">Prénom</label>
+                      <input type="text" class="form-control" id="lastName" placeholder="Prénom" required>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputAdresse">Adresse</label>
-                      <input type="text" class="form-control" id="exampleInputAdresse" placeholder="Adresse">
+                      <label for="Adresse"">Adresse</label>
+                      <input type="text" class="form-control" id="adresse" placeholder="Adresse" required>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputCity">Ville</label>
-                      <input type="Text" class="form-control" id="exampleInputCity" placeholder="Ville">
+                      <label for="City">Ville</label>
+                      <input type="Text" class="form-control" id="city" placeholder="Ville" required>
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlEmail">Adresse Email</label>
-                        <input type="email" class="form-control" id="exampleFormControlEmail" placeholder="name@example.com">
+                        <label for="Email">Adresse Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
                     </div>
 
-                    <button type="submit" class="btn">Valider</button>
+                    <button type="submit" class="btn" id="validate">Valider</button>
                 </form> `
+
+                var formValid = document.getElementById('validate');
+                formValid.addEventListener ('click', order);
+
+                function order() {
+
+                    // on déclare un tableau de produits pour la requete POST plus tard
+                    let products = [];
+                    
+                        
+                        
+                   
+                       
+                  
+                   for (let i in JSON.parse(localStorage.getItem("productsInCart"))) {
+                       
+                        products.push(cartItems[i]._id)
+                        
+                    }
+                 
+                    console.log(cartItems)
+
+                    
+                    console.log(products)
+                   
+                 // On récupere la valeur des inputs saisie 
+                    let name = document.getElementById("name").value
+                    let lastName = document.getElementById("lastName").value 
+                    let adresse = document.getElementById("adresse").value  
+                    let city = document.getElementById('city').value 
+                    let email = document.getElementById("email").value
+                 // on met les valeur dans un objet pour la requete Post
+                    let contact = {
+                    "name" : name,
+                    "lastName": lastName,
+                    "adresse" : adresse,
+                    "city": city,
+                    "email": email,
+                    }
+
+                 //création de l'objet pour la requete post 
+
+                    let obj = {
+                    contact,
+                    products
+                    }   
+
+                    let order = JSON.stringify(obj)
+
+                    console.log(order);
+                    console.log(products);
+                }       
 
                 } else {
                     let cartEmpty = document.createElement("p")
@@ -186,6 +238,9 @@
 
             loadCartNumbers()
             displayCart()
+            
+
+
 
 
 
