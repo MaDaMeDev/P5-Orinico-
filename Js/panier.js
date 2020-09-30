@@ -1,3 +1,5 @@
+
+
          
 // créer et stocker le nombre de produits dans le panier 
             function cartNumbers(product) {
@@ -177,21 +179,16 @@
                 </form> `
 
                 var formValid = document.getElementById('validate');
-                formValid.addEventListener ('click', order);
+                formValid.addEventListener ('click', order, );
 
                 function order() {
 
                     // on déclare un tableau de produits pour la requete POST plus tard
                     let products = [];
-                    
-                        
-                        
-                   
+                    // on recupere les Id des produits en panier pour les pousser dans products
+                   for (let item in cartItems) {
                        
-                  
-                   for (let i in JSON.parse(localStorage.getItem("productsInCart"))) {
-                       
-                        products.push([i].id)
+                       products.push(item)
                         
                     }
                  
@@ -226,6 +223,39 @@
 
                     console.log(order);
                     console.log(products);
+
+                    fetch ( "http://localhost:3000/api/teddies/order", {
+                        method : "post",
+                        body: JSON.stringify(obj)
+                    })
+                   .then(function(response){
+                       return response.json()
+                   })
+                   .then(function (data){
+                       console.log(data)
+                   })
+
+
+
+
+
+               /*     
+                    const sendOrder = async function () {
+                        let response = await fetch ( "http://localhost:3000/api/teddies/order", {
+                            method : "POST",
+                            body: JSON.stringify(obj)
+                        })
+                        if (response.ok) {
+                            
+                            console.log(response.json())
+                        } else {
+                            console.log("error:", response.status)
+                        }
+                    }
+                    sendOrder()
+
+                   */ 
+
                 }       
 
                 } else {
