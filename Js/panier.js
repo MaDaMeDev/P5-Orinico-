@@ -156,7 +156,7 @@
                     <form>
                     <div class="form-group">
                       <label for="Name">Nom</label>
-                      <input type="name" class="form-control" id="name"" aria-describedby="nameHelp" placeholder="Nom" required>
+                      <input type="name" class="form-control" id="firstName"" aria-describedby="nameHelp" placeholder="Nom" required>
                     </div>
                     <div class="form-group">
                       <label for="LastName">Prénom</label>
@@ -179,7 +179,7 @@
                 </form> `
 
                 var formValid = document.getElementById('validate');
-                formValid.addEventListener ('click', order, );
+                formValid.addEventListener ('click', order);
 
                 function order() {
 
@@ -198,14 +198,14 @@
                     console.log(products)
                    
                  // On récupere la valeur des inputs saisie 
-                    let name = document.getElementById("name").value
+                    let firstName = document.getElementById("firstName").value
                     let lastName = document.getElementById("lastName").value 
                     let adresse = document.getElementById("adresse").value  
                     let city = document.getElementById('city').value 
                     let email = document.getElementById("email").value
                  // on met les valeur dans un objet pour la requete Post
                     let contact = {
-                    "name" : name,
+                    "firstName" : firstName,
                     "lastName": lastName,
                     "adresse" : adresse,
                     "city": city,
@@ -223,12 +223,13 @@
 
                     console.log(order);
                     console.log(products);
+                   
 
-                    fetch ( "http://localhost:3000/api/teddies/order", {
-                        method : "POST",
-                        body: JSON.stringify(obj)
+                   fetch("http://localhost:3000/api/teddies/order/", {
+                        method: "POST",
+                        body: obj
                     })
-                   .then(function(response){
+                   .then(function (response) {
                        return response.json()
                    })
                    .then(function (data){
