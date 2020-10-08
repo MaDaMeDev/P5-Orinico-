@@ -177,7 +177,7 @@ function displayCart() {
 loadCartNumbers();  
 displayCart();
 
-var formValid = document.getElementById("validate");
+    var formValid = document.getElementById("validate");
     formValid.addEventListener("click", order);
 
     function order() {

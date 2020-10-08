@@ -3,6 +3,7 @@ body {
     font-family: 'Roboto Slab', serif;
     height: auto;
     
+    
    
 }
 
@@ -11,13 +12,27 @@ header  {
     background-color:#F2E4EB;
    
 }
+
+
+img .nounours  {
+
+    max-width: 50px;
+
+}
+
+.cart .nav-link{
+   color: black;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   
+}
 .bg-banniere {
     background-image: url(/img/Rectangle\ 2.png);
     height: 40vh;
     background-size: cover;
     display: flex;
-   
- 
+  
  }
 
  .bg-rect {
@@ -72,7 +87,6 @@ article {
 footer {
 
     width: 100%;
-    
     background-color:#F2E4EB;
 }
 
@@ -80,7 +94,7 @@ footer {
 
 .product {
 
-    margin: 2rem auto;
+    margin: 10rem auto;
 }
 
 /* Page Panier -----------------------------*/
@@ -90,8 +104,8 @@ footer {
     max-width: 80%;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin: 0 auto;
-    margin-top: 2rem;
+    margin: 15rem auto;
+    
 }
 
 .products-header {
@@ -149,6 +163,7 @@ footer {
     justify-content: flex-end;
     width: 100%;
     padding: 20px;
+    
 }
 
 .totalTitle {
@@ -160,6 +175,23 @@ footer {
      width: 20%;
  }
 
+ /*-------------------------------------Page Confirmation--------------------------------*/
 
+ .text {
+     margin: 5rem auto;
+     
+ }
 
+/* --------------------------------------Média queries -----------------------------------*/
+
+@media screen and (max-width: 640px) {
+    .logo-nounour {
+        display: none;
+    }
+     .footer {
+         flex-wrap: nowrap;
+         flex-direction: column;
+     }
+   
+  }
 
