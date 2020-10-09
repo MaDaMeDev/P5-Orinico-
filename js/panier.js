@@ -150,7 +150,7 @@ function displayCart() {
                       <input type="text" class="form-control" id="lastName" placeholder="Prénom" required>
                     </div>
                     <div class="form-group">
-                      <label for="Adresse"">Adresse</label>
+                      <label for="address"">Adresse</label>
                       <input type="text" class="form-control" id="address" placeholder="Adresse" required>
                     </div>
                     <div class="form-group">
