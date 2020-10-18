@@ -1,52 +1,4 @@
-// créer et stocker le nombre de produits dans le panier
-function cartNumbers(product) {
-  let productNumbers = localStorage.getItem("cartNumbers");
-
-  productNumbers = parseInt(productNumbers);
-
-  if (productNumbers) {
-    localStorage.setItem("cartNumbers", productNumbers + 1);
-    document.querySelector(".cart span").textContent = productNumbers + 1;
-  } else {
-    localStorage.setItem("cartNumbers", 1);
-    document.querySelector(".cart span").textContent = 1;
-  }
-
-  saveCard(product);
-}
-
-function saveCard(product) {
-  let cartItems = localStorage.getItem("productsInCart", "cartNumbers");
-  cartItems = JSON.parse(cartItems);
-
-  if (cartItems !== null) {
-    if (cartItems[product.id] == undefined) {
-      cartItems = {
-        ...cartItems,
-        [product.id]: product,
-      };
-    }
-    cartItems[product.id].inCart += 1;
-  } else {
-    product.inCart = 1;
-    cartItems = {
-      [product.id]: product,
-    };
-  }
-  localStorage.setItem("productsInCart", JSON.stringify(cartItems));
-}
-
-function totalCoast(product) {
-  let cartCoast = localStorage.getItem("totalCoast");
-
-  if (cartCoast != null) {
-    cartCoast = parseInt(cartCoast);
-    localStorage.setItem("totalCoast", cartCoast + product.price);
-  } else {
-    localStorage.setItem("totalCoast", product.price);
-  }
-}
-
+// Affichage du nombre de produits au panier (icone header)
 loadCartNumbers();
 
 function loadCartNumbers() {
@@ -56,7 +8,7 @@ function loadCartNumbers() {
     document.querySelector(".cart span").textContent = productNumbers;
   }
 }
-
+// Affichage des produits selectionés (creation de la template panier)
 function displayCart() {
   let cartItems = localStorage.getItem("productsInCart");
   cartItems = JSON.parse(cartItems);
@@ -94,33 +46,24 @@ function displayCart() {
       quant.textContent = `${item.inCart}`;
       quantity.appendChild(quant);
 
+      let totalArticle = document.createElement("div");
+      totalArticle.classList.add("totalArticle");
+      productContainer.appendChild(totalArticle);
+
+      let totalArtTitle = document.createElement("h5");
+      totalArtTitle.classList.add("totalArtTitle");
+      totalArtTitle.textContent = "Total";
+      totalArticle.appendChild(totalArtTitle);
+
       let total = document.createElement("p");
       total.classList.add("total");
       total.textContent = `${item.inCart * item.price},00$`;
-      prod.appendChild(total);
-
-      let remove = document.createElement("a");
-      remove.classList.add("remove");
-      remove.setAttribute("href", "./panier.html");
-      prod.appendChild(remove);
-
-      let removeIcon = document.createElement("i");
-      removeIcon.classList.add("far", "fa-trash-alt");
-      remove.appendChild(removeIcon);
-      // A voir -------------------------------------------------------
-      function deleteArticle() {
-        remove.addEventListener("click", () => {
-          localStorage.removeItem("productsInCart", item);
-          localStorage.removeItem("cartNumbers");
-        });
-      }
-
-      deleteArticle();
+      totalArticle.appendChild(total);
     });
-
+    // affichage du prix total des produits et du panier
     let totalContainer = document.createElement("section");
     totalContainer.classList.add("total-container");
-    let container = document.querySelector(".container-main");
+    let container = document.querySelector(".products-cart");
     container.appendChild(totalContainer);
 
     let totalTitle = document.createElement("h4");
@@ -133,13 +76,50 @@ function displayCart() {
     totalBasket.textContent = `${cartCoast}$`;
     totalContainer.appendChild(totalBasket);
 
-    let formContainer = document.createElement("div");
-    formContainer.classList.add("form-container", "container");
-    container.appendChild(formContainer);
+    let removeCart = document.createElement("div");
+    removeCart.classList.add("remove-cart");
+    productContainer.appendChild(removeCart);
+    // Affichage du bouton supprimer les articles du panier
+    let remove = document.createElement("a");
+    remove.classList.add("remove");
+    remove.setAttribute("href", "./panier.html");
+    removeCart.appendChild(remove);
 
-    formContainer.innerHTML = `
+    let removeText = document.createElement("p");
+    removeText.textContent = "Vider votre panier";
+    removeCart.appendChild(removeText);
 
-                    <h4 class="formTitle"> Valider votre commande</h4>
+    let removeIcon = document.createElement("i");
+    removeIcon.classList.add("far", "fa-trash-alt");
+    remove.appendChild(removeIcon);
+    // fonction pour effacer les articles du  panier
+    function deleteArticle() {
+      remove.addEventListener("click", () => {
+        localStorage.clear();
+      });
+    }
+    form();
+    deleteArticle();
+  } else {
+    let cartEmpty = document.createElement("p");
+    cartEmpty.classList.add("cart-empty");
+    cartEmpty.textContent = "Votre panier est vide";
+    productContainer.appendChild(cartEmpty);
+  }
+}
+
+loadCartNumbers();
+displayCart();
+// création et affichage du formulaire de validations de commande
+function form() {
+  let formContainer = document.createElement("div");
+  formContainer.classList.add("form-container", "container");
+  let container = document.querySelector(".products-container");
+  container.appendChild(formContainer);
+
+  formContainer.innerHTML = `
+
+                    <h4 class="formTitle text-center"> Valider votre commande</h4>
                     <form>
                     <div class="form-group">
                       <label for="Name">Nom</label>
@@ -158,97 +138,91 @@ function displayCart() {
                       <input type="Text" class="form-control" id="city" placeholder="Ville" required>
                     </div>
                     <div class="form-group">
-                        <label for="Email">Adresse Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                        <label for="mail">Adresse Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
                     </div>
 
                     <button type="submit" class="btn" id="validate">Valider</button>
                 </form> `;
-
-    
-    
-  } else {
-    let cartEmpty = document.createElement("p");
-    cartEmpty.textContent = "Votre panier est vide";
-    productContainer.appendChild(cartEmpty);
-  }
 }
+// fonction au click sur le boutons valider
+var formValid = document.getElementById("validate");
+formValid.addEventListener("click", order);
 
-loadCartNumbers();  
-displayCart();
+function order() {
+  // on déclare un tableau de produits pour la requete POST plus tard
+  let products = [];
+  // on recupere les Id des produits en panier pour les pousser dans products
+  let cartItems = localStorage.getItem("productsInCart");
+  cartItems = JSON.parse(cartItems);
+  for (let id in cartItems) {
+    products.push(id);
+    console.log(typeof id);
+  }
+  console.log(cartItems);
+  console.log(products);
 
-    var formValid = document.getElementById("validate");
-    formValid.addEventListener("click", order);
+  // On récupere la valeur des inputs saisie
+  let firstName = document.getElementById("firstName").value;
+  let lastName = document.getElementById("lastName").value;
+  let address = document.getElementById("address").value;
+  let city = document.getElementById("city").value;
+  let email = document.getElementById("email").value;
+  // on met les valeur dans un objet pour la requete Post
+  let contact = {
+    firstName: firstName,
+    lastName: lastName,
+    address: address,
+    city: city,
+    email: email,
+  };
 
-    function order() {
-      // on déclare un tableau de produits pour la requete POST plus tard
-      let products = [];
-      // on recupere les Id des produits en panier pour les pousser dans products
-      let cartItems = localStorage.getItem("productsInCart");
-      cartItems = JSON.parse(cartItems);
-      for (let id in cartItems) {
-        products.push(id);
-        console.log(typeof id)
+  //création de l'objet pour la requete post
+
+  let obj = {
+    contact,
+    products,
+  };
+  console.log(obj);
+
+  // on envoie les objets créer vers l'api avec un requete post pour recuperer le numero de commande
+  const postApiUrl = "http://localhost:3000/api/teddies/order";
+
+  let postDataApi = JSON.stringify(obj);
+
+  const postDataCart = async function () {
+    try {
+      let response = await fetch(postApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: postDataApi,
+      });
+      console.log(response);
+
+      //on recupere les donnée reçue de l'api
+
+      if (response.ok) {
+        let data = await response.json();
+        console.log("Infos récupérées :");
+        console.log(data);
+
+        let idPostApi = data["orderId"];
+        console.log(idPostApi);
+
+        let productsPostApi = products;
+        console.log(productsPostApi);
+
+        // Renvoie sur la page comfirmation de commande et affichage des données récuperer (order-id)
+        window.location = `confirmation.html?id=${data["orderId"]}&price=${productsPostApi}`;
+      } else {
+        console.error("reponse serveur : ", response.status);
       }
-      console.log(cartItems);
-      console.log(products);
-
-      // On récupere la valeur des inputs saisie
-      let firstName = document.getElementById("firstName").value;
-      let lastName = document.getElementById("lastName").value;
-      let address = document.getElementById("address").value;
-      let city = document.getElementById("city").value;
-      let email = document.getElementById("email").value;
-      // on met les valeur dans un objet pour la requete Post
-      let contact = {
-        firstName: firstName,
-        lastName: lastName,
-        address: address,
-        city: city,
-        email: email,
-      };
-
-      //création de l'objet pour la requete post
-
-      let obj = {
-        contact,
-        products,
-      };
-      console.log(obj)
-
-      const postApiUrl = "http://localhost:3000/api/teddies/order";
-
-      let postDataApi = JSON.stringify(obj);
-
-      const postDataCart = async function () {
-        try {
-          let response = await fetch(postApiUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: postDataApi,
-          });
-          console.log(response)
-          if (response.ok) {
-            let data = await response.json();
-            console.log("Infos récupérées :");
-            console.log(data);
-
-            let idPostApi = data["orderId"];
-            console.log(idPostApi);
-
-            let productsPostApi = products;
-            console.log(productsPostApi);
-
-            window.location = `confirmation.html?id=${data["orderId"]}&price=${productsPostApi}`;
-          } else {
-            console.error("reponse serveur : ", response.status);
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      };
-      postDataCart();
-      localStorage.clear();
+    } catch (e) {
+      console.log(e);
     }
+  };
+  postDataCart();
+  localStorage.clear();
+}

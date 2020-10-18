@@ -1,3 +1,5 @@
+// On cherche et on ouvre l'adresse api qui contient les donnée par ID
+
 const actualUrl = new URLSearchParams(window.location.search);
 
 const id = actualUrl.get("id");
@@ -6,6 +8,7 @@ const apiUrl = "http://localhost:3000/api/teddies/" + id;
 
 console.log(id);
 
+// création de la requete fetch avec la nouvelle adresse api
 const callApi = async function () {
   try {
     let response = await fetch(apiUrl);
@@ -13,6 +16,7 @@ const callApi = async function () {
       let data = await response.json();
       console.log(data);
 
+      // création de la template produits avec les données récuperés
       function detailProduct(data) {
         console.log(data);
         let title = document.createElement("h3");
@@ -56,6 +60,7 @@ const callApi = async function () {
         select.classList.add("custom-select");
         select.setAttribute("id", "-colors");
 
+        // Création du menu déroulant pour les choix de couleurs
         let optionSelect = document.createElement("option", "selected");
         select.appendChild(optionSelect);
         optionSelect.textContent = "Choisir la couleur";
@@ -66,13 +71,14 @@ const callApi = async function () {
           option.textContent = `${color}`;
         });
 
+        //création du bouton "acheter"
         let btn = document.createElement("a");
         article.appendChild(btn);
         btn.classList.add("btn", "buy");
         btn.setAttribute("href", "#");
         btn.textContent = "Acheter";
 
-        // test ecoute au click
+        // Création de l'écoute au clic sur le bouton acheter avec une fonction qui enregistre les produits, leur prix et leur cout dans le locale storage
 
         let carts = document.querySelectorAll(".buy");
 
@@ -93,7 +99,7 @@ const callApi = async function () {
             totalCoast(products[i]);
           });
         }
-
+        // creation de la fonction qui enregistre le nombre d'article selectionné  au panier
         function cartNumbers(product) {
           let productNumbers = localStorage.getItem("cartNumbers");
 
@@ -110,7 +116,7 @@ const callApi = async function () {
 
           saveCard(product);
         }
-
+        // enregistrement des produits selectionner dans le locale storage
         function saveCard(product) {
           let cartItems = localStorage.getItem("productsInCart");
           cartItems = JSON.parse(cartItems);
@@ -132,7 +138,7 @@ const callApi = async function () {
 
           localStorage.setItem("productsInCart", JSON.stringify(cartItems));
         }
-
+        // enregistrement du panier total
         function totalCoast(product) {
           let cartCoast = localStorage.getItem("totalCoast");
 
@@ -145,7 +151,7 @@ const callApi = async function () {
         }
 
         loadCartNumbers();
-
+        // affichage du nombre de produits selectioné dans l'iconr panier (header)
         function loadCartNumbers() {
           let productNumbers = localStorage.getItem("cartNumbers");
 

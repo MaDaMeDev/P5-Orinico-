@@ -1,3 +1,4 @@
+// création de la methode fetch pour se connecter à l'api
 const callApi = async function () {
   try {
     let response = await fetch("http://localhost:3000/api/teddies");
@@ -5,6 +6,8 @@ const callApi = async function () {
       let data = await response.json();
       console.log(data);
 
+      // Mise en place de la template accueil
+      // si la réponse de l'api est ok on creer la template pour inclure les valeurs récuperer
       data.forEach((value) => {
         console.log(value);
         let article = document.createElement("article");
@@ -50,3 +53,14 @@ const callApi = async function () {
 };
 
 callApi();
+
+// Fonction pour afficher le nombre de produits dans le panier
+loadCartNumbers();
+
+function loadCartNumbers() {
+  let productNumbers = localStorage.getItem("cartNumbers");
+
+  if (productNumbers) {
+    document.querySelector(".cart span").textContent = productNumbers;
+  }
+}
