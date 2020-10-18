@@ -139,7 +139,7 @@ function form() {
                     </div>
                     <div class="form-group">
                         <label for="mail">Adresse Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="name@example.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$" required>
                     </div>
 
                     <button type="submit" class="btn" id="validate">Valider</button>

@@ -151,7 +151,7 @@ const callApi = async function () {
         }
 
         loadCartNumbers();
-        // affichage du nombre de produits selectioné dans l'iconr panier (header)
+        // affichage du nombre de produits selectioné dans l'icone panier (header)
         function loadCartNumbers() {
           let productNumbers = localStorage.getItem("cartNumbers");
 
