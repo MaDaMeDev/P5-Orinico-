@@ -120,7 +120,7 @@ function form() {
   formContainer.innerHTML = `
 
                     <h4 class="formTitle text-center"> Valider votre commande</h4>
-                    <form>
+                    <form method="post">
                     <div class="form-group">
                       <label for="Name">Nom</label>
                       <input type="text" class="form-control" id="firstName"" aria-describedby="nameHelp" placeholder="Nom" required>
@@ -155,7 +155,10 @@ formValid.addEventListener("click", (event) => {
   }
 
   else {
+    
+    console.log("e")
     event.preventDefault()
+    
   }
   
   
