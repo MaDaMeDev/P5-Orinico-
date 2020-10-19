@@ -123,7 +123,7 @@ function form() {
                     <form>
                     <div class="form-group">
                       <label for="Name">Nom</label>
-                      <input type="name" class="form-control" id="firstName"" aria-describedby="nameHelp" placeholder="Nom" required>
+                      <input type="text" class="form-control" id="firstName"" aria-describedby="nameHelp" placeholder="Nom" required>
                     </div>
                     <div class="form-group">
                       <label for="LastName">Prénom</label>
@@ -131,7 +131,7 @@ function form() {
                     </div>
                     <div class="form-group">
                       <label for="address"">Adresse</label>
-                      <input type="text" class="form-control" id="address" placeholder="Adresse" required>
+                      <input type="text" class="form-control" id="address" placeholder="Adresse"  required>
                     </div>
                     <div class="form-group">
                       <label for="City">Ville</label>
@@ -139,17 +139,32 @@ function form() {
                     </div>
                     <div class="form-group">
                         <label for="mail">Adresse Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="name@example.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$" required>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com" pattern="[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})" required >
                     </div>
 
-                    <button type="submit" class="btn" id="validate">Valider</button>
+                    <button type="submit" class="btn" id="validate" name= "validate">Valider</button>
                 </form> `;
 }
 // fonction au click sur le boutons valider
 var formValid = document.getElementById("validate");
-formValid.addEventListener("click", order);
+formValid.addEventListener("click", (event) => {
+  let email = document.getElementById("email")
 
-function order() {
+  if (email.validity.valid) {
+    catchOrder()
+  }
+
+  else {
+    event.preventDefault()
+  }
+  
+  
+
+});
+
+
+
+function catchOrder() {
   // on déclare un tableau de produits pour la requete POST plus tard
   let products = [];
   // on recupere les Id des produits en panier pour les pousser dans products
@@ -168,6 +183,8 @@ function order() {
   let address = document.getElementById("address").value;
   let city = document.getElementById("city").value;
   let email = document.getElementById("email").value;
+
+  
   // on met les valeur dans un objet pour la requete Post
   let contact = {
     firstName: firstName,
@@ -184,6 +201,7 @@ function order() {
     products,
   };
   console.log(obj);
+  
 
   // on envoie les objets créer vers l'api avec un requete post pour recuperer le numero de commande
   const postApiUrl = "http://localhost:3000/api/teddies/order";
@@ -192,7 +210,7 @@ function order() {
 
   const postDataCart = async function () {
     try {
-      let response = await fetch(postApiUrl, {
+      let response = await fetch( postApiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -202,8 +220,8 @@ function order() {
       console.log(response);
 
       //on recupere les donnée reçue de l'api
-
-      if (response.ok) {
+      
+      if (response.ok){
         let data = await response.json();
         console.log("Infos récupérées :");
         console.log(data);
@@ -223,6 +241,8 @@ function order() {
       console.log(e);
     }
   };
+  
+  
   postDataCart();
   localStorage.clear();
 }
