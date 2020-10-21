@@ -123,11 +123,11 @@ function form() {
                     <form method= "post">
                     <div class="form-group">
                       <label for="Name">Nom</label>
-                      <input type="text" class="form-control" id="firstName"" aria-describedby="nameHelp" placeholder="Nom" required pattern='^[A-Z]{1}[a-z\ ]+$'>
+                      <input type="text" class="form-control" id="firstName"" aria-describedby="nameHelp" placeholder="Nom" required pattern='^[A-Z-a-z]{1}[a-z\ ]+$'>
                     </div>
                     <div class="form-group">
                       <label for="LastName">Prénom</label>
-                      <input type="text" class="form-control" id="lastName" placeholder="Prénom" required pattern='^[A-Z]{1}[A-Za-zÀ-ÿ\ -]+$'>
+                      <input type="text" class="form-control" id="lastName" placeholder="Prénom" required pattern='^[A-Z-a-z]]{1}[A-Za-zÀ-ÿ\ -]+$'>
                     </div>
                     <div class="form-group">
                       <label for="address"">Adresse</label>
