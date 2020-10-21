@@ -226,8 +226,10 @@ function catchOrder() {
         let productsPostApi = products;
         console.log(productsPostApi);
 
+        let cartCoast = localStorage.getItem("totalCoast");
+
         // Renvoie sur la page comfirmation de commande et affichage des données récuperer (order-id)
-        window.location = `confirmation.html?id=${data["orderId"]}&price=${productsPostApi}`;
+        window.location = `confirmation.html?id=${data["orderId"]}&price=${cartCoast}`;
       } else {
         console.error("reponse serveur : ", response.status);
       }
@@ -237,5 +239,5 @@ function catchOrder() {
   };
 
   postDataCart();
-  localStorage.clear();
+  localStorage.removeItem("productsInCart");
 }

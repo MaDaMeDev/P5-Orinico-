@@ -1,8 +1,8 @@
-// On cherche et on ouvre l'adresse api qui contient les données
-
 const actualUrl = new URLSearchParams(window.location.search);
 
 const orderId = actualUrl.get("id");
+
+const totalCoast = actualUrl.get("price")
 
 console.log(orderId);
 
@@ -11,5 +11,5 @@ console.log(orderId);
 let container = document.querySelector(".text");
 
 let comfimation = document.createElement("p");
-comfimation.textContent = "Commande  N° " + orderId;
+comfimation.textContent = "La commande  N° " + orderId + ", pour un montant de : "+ totalCoast+ "$" + " a bien été validée";
 container.appendChild(comfimation);
