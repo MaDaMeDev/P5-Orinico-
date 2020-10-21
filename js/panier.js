@@ -148,15 +148,17 @@ function form() {
 // fonction au click sur le boutons valider
 var formValid = document.getElementById("validate");
 formValid.addEventListener("click", (event) => {
-    
-  if (email.validity.valid || adress.validity.valid || firstName.validity.valid || lastName.validity.valid || city.validity.valid) {
-    event.preventDefault()
-    catchOrder()
+  if (
+    email.validity.valid ||
+    adress.validity.valid ||
+    firstName.validity.valid ||
+    lastName.validity.valid ||
+    city.validity.valid
+  ) {
+    event.preventDefault();
+    catchOrder();
   }
-   
 });
-
-
 
 function catchOrder() {
   // on déclare un tableau de produits pour la requete POST plus tard
@@ -178,7 +180,6 @@ function catchOrder() {
   let city = document.getElementById("city").value;
   let email = document.getElementById("email").value;
 
-  
   // on met les valeur dans un objet pour la requete Post
   let contact = {
     firstName: firstName,
@@ -195,7 +196,6 @@ function catchOrder() {
     products,
   };
   console.log(obj);
-  
 
   // on envoie les objets créer vers l'api avec un requete post pour recuperer le numero de commande
   const postApiUrl = "http://localhost:3000/api/teddies/order";
@@ -204,7 +204,7 @@ function catchOrder() {
 
   const postDataCart = async function () {
     try {
-      let response = await fetch( postApiUrl, {
+      let response = await fetch(postApiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -214,8 +214,8 @@ function catchOrder() {
       console.log(response);
 
       //on recupere les donnée reçue de l'api
-      
-      if (response.ok){
+
+      if (response.ok) {
         let data = await response.json();
         console.log("Infos récupérées :");
         console.log(data);
@@ -228,7 +228,6 @@ function catchOrder() {
 
         // Renvoie sur la page comfirmation de commande et affichage des données récuperer (order-id)
         window.location = `confirmation.html?id=${data["orderId"]}&price=${productsPostApi}`;
-        
       } else {
         console.error("reponse serveur : ", response.status);
       }
@@ -236,8 +235,7 @@ function catchOrder() {
       console.log(e);
     }
   };
-  
-  
+
   postDataCart();
   localStorage.clear();
 }
