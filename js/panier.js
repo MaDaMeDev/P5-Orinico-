@@ -120,7 +120,7 @@ function form() {
   formContainer.innerHTML = `
 
                     <h4 class="formTitle text-center"> Valider votre commande</h4>
-                    <form method="post">
+                    <form method= "post">
                     <div class="form-group">
                       <label for="Name">Nom</label>
                       <input type="text" class="form-control" id="firstName"" aria-describedby="nameHelp" placeholder="Nom" required>
@@ -148,21 +148,12 @@ function form() {
 // fonction au click sur le boutons valider
 var formValid = document.getElementById("validate");
 formValid.addEventListener("click", (event) => {
-  let email = document.getElementById("email")
-
-  if (email.validity.valid) {
+  
+  if (email.validity.valid ) {
+    event.preventDefault()
     catchOrder()
   }
-
-  else {
-    
-    console.log("e")
-    event.preventDefault()
-    
-  }
-  
-  
-
+   
 });
 
 
@@ -237,6 +228,7 @@ function catchOrder() {
 
         // Renvoie sur la page comfirmation de commande et affichage des données récuperer (order-id)
         window.location = `confirmation.html?id=${data["orderId"]}&price=${productsPostApi}`;
+        
       } else {
         console.error("reponse serveur : ", response.status);
       }
