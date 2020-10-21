@@ -123,19 +123,19 @@ function form() {
                     <form method= "post">
                     <div class="form-group">
                       <label for="Name">Nom</label>
-                      <input type="text" class="form-control" id="firstName"" aria-describedby="nameHelp" placeholder="Nom" required>
+                      <input type="text" class="form-control" id="firstName"" aria-describedby="nameHelp" placeholder="Nom" required pattern='^[A-Z]{1}[a-z\ ]+$'>
                     </div>
                     <div class="form-group">
                       <label for="LastName">Prénom</label>
-                      <input type="text" class="form-control" id="lastName" placeholder="Prénom" required>
+                      <input type="text" class="form-control" id="lastName" placeholder="Prénom" required pattern='^[A-Z]{1}[A-Za-zÀ-ÿ\ -]+$'>
                     </div>
                     <div class="form-group">
                       <label for="address"">Adresse</label>
-                      <input type="text" class="form-control" id="address" placeholder="Adresse"  required>
+                      <input type="text" class="form-control" id="address" placeholder="Adresse"  required pattern= "[0-9]{1,3}(?:(?:[,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)*">
                     </div>
                     <div class="form-group">
                       <label for="City">Ville</label>
-                      <input type="Text" class="form-control" id="city" placeholder="Ville" required>
+                      <input type="Text" class="form-control" id="city" placeholder="Ville" required pattern='^[A-Z]{1}[a-zA-Z\- ]+$'>
                     </div>
                     <div class="form-group">
                         <label for="mail">Adresse Email</label>
@@ -148,8 +148,8 @@ function form() {
 // fonction au click sur le boutons valider
 var formValid = document.getElementById("validate");
 formValid.addEventListener("click", (event) => {
-  
-  if (email.validity.valid ) {
+    
+  if (email.validity.valid || adress.validity.valid || firstName.validity.valid || lastName.validity.valid || city.validity.valid) {
     event.preventDefault()
     catchOrder()
   }
