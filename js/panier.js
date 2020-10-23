@@ -240,4 +240,5 @@ function catchOrder() {
 
   postDataCart();
   localStorage.removeItem("productsInCart");
+  localStorage.removeItem("cartNumbers")
 }
